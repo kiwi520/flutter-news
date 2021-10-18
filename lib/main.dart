@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/pages/welcome/welcome.dart';
+import 'package:news_app/routes.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Material App',
+    return MaterialApp(
+      title: 'news App',
       home: WelcomePage(),
+      routes: staticRoutes,
       // showSemanticsDebugger: true,
     );
   }

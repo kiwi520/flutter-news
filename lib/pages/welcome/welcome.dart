@@ -100,20 +100,23 @@ class _WelcomePageState extends State<WelcomePage> {
       child: ElevatedButton(
         child: Text("Get started"),
         style: ButtonStyle(
-            foregroundColor:
-                MaterialStateProperty.all(AppColors.primaryElementText),
-            backgroundColor:
-                MaterialStateProperty.all(AppColors.primaryElement),
-            side: MaterialStateProperty.all(
-                BorderSide(width: 1, color: AppColors.primaryElement)),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
-                ),
+          foregroundColor:
+              MaterialStateProperty.all(AppColors.primaryElementText),
+          backgroundColor: MaterialStateProperty.all(AppColors.primaryElement),
+          side: MaterialStateProperty.all(
+              BorderSide(width: 1, color: AppColors.primaryElement)),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(6),
             ),
+          ),
         ),
         onPressed: () {
-          print('dddddd');
+          /// 跳转到登录页
+          Navigator.pushNamed(
+            context,
+            "/sign-in",
+          );
         },
       ),
     );
