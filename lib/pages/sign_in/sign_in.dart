@@ -7,6 +7,7 @@ import 'package:news_app/common/entity/user_login_response_entity.dart';
 import 'package:news_app/common/utils/utils.dart';
 import 'package:news_app/common/values/values.dart';
 import 'package:news_app/common/widgets/widgets.dart';
+import 'package:news_app/global.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -114,7 +115,11 @@ class _SignInPageState extends State<SignInPage> {
 
     UserLoginResponseEntity userLoginResponseEntity = await UserAPI.login(params: userLoginRequestEntity);
 
-    print(userLoginResponseEntity);
+    Global.saveProfile(userLoginResponseEntity);
+    
+    print('StorageUtil.getMap(STORAGE_USER_PROFILE_KEY)');
+    print(StorageUtil.getMap(STORAGE_USER_PROFILE_KEY));
+    print('StorageUtil.getMap(STORAGE_USER_PROFILE_KEY)');
   }
 
   /// 跳转到注册页面

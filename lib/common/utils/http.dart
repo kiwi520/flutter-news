@@ -1,9 +1,14 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:news_app/common/utils/net_cache.dart';
 import 'package:news_app/common/utils/utils.dart';
+import 'package:news_app/common/values/proxy.dart';
 import 'package:news_app/common/values/values.dart';
+import 'package:news_app/global.dart';
 
 /*
   * http 操作类
@@ -11,8 +16,6 @@ import 'package:news_app/common/values/values.dart';
   * 手册
   * https://github.com/flutterchina/dio/blob/master/README-ZH.md#formdata
   *
-  * 从2.1.x升级到 3.x
-  * https://github.com/flutterchina/dio/blob/master/migration_to_3.0.md
 */
 class HttpUtil {
 
@@ -59,6 +62,7 @@ class HttpUtil {
     // Cookie管理
     CookieJar cookieJar = CookieJar();
     dio.interceptors.add(CookieManager(cookieJar));
+    dio.interceptors.add(NetCacheInterceptor()); //缓存
 
     /// 拦截器
     // interceptors(dio);
@@ -81,6 +85,19 @@ class HttpUtil {
 
     /// 请求日志
     // dio.interceptors.add(HttpFormatter());
+
+    // 在调试模式下需要抓包调试，所以我们使用代理，并禁用HTTPS证书校验
+    // if (!Global.isRelease && PROXY_ENABLE) {
+    //   (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+    //       (client) {
+    //     client.findProxy = (uri) {
+    //       return "PROXY $PROXY_IP:$PROXY_PORT";
+    //     };
+    //     //代理工具会提供一个抓包的自签名证书，会通不过证书校验，所以我们禁用证书校验
+    //     client.badCertificateCallback =
+    //         (X509Certificate cert, String host, int port) => true;
+    //   };
+    // }
 
     dio.interceptors.add(
       InterceptorsWrapper(onRequest: (e, handler) {
@@ -106,6 +123,8 @@ class HttpUtil {
       }),
     );
   }
+
+
 
   /*
    * error统一处理
@@ -153,31 +172,85 @@ class HttpUtil {
   /// 读取本地配置
   Options getLocalOptions() {
     late Options options;
-    String token = StorageUtil().getItem(STORAGE_USER_TOKEN_KEY);
+    String? token = StorageUtil.getString(STORAGE_USER_TOKEN_KEY);
     options = Options(headers: {'Authorization': 'Bearer $token',});
 
     return options;
   }
 
+
+  /// 读取本地配置
+  Map<String, dynamic> getAuthorizationHeader() {
+    var headers;
+    String? accessToken = Global.profile.accessToken;
+    if (accessToken != null) {
+      headers = {
+        'Authorization': 'Bearer $accessToken',
+      };
+    }
+    return headers;
+  }
+
   /// restful get 操作
-  Future get(String path,
-      {dynamic params, required Options options, CancelToken? cancelToken}) async {
+
+  // 修改 get 请求
+  /// restful get 操作
+  /// refresh 是否下拉刷新 默认 false
+  /// noCache 是否不缓存 默认 true
+  /// list 是否列表 默认 false
+  /// cacheKey 缓存key
+  Future get(
+      String path, {
+        dynamic params,
+        required Options options,
+        bool refresh = false,
+        bool noCache = !CACHE_ENABLE,
+        bool list = false,
+        required String cacheKey,
+        CancelToken? cancelToken
+      }) async {
     try {
-      var tokenOptions = options;
+      Options requestOptions = options;
+      requestOptions = requestOptions.copyWith(extra: {
+        "refresh": refresh,
+        "noCache": noCache,
+        "list": list,
+        "cacheKey": cacheKey,
+      });
+      Map<String, dynamic> _authorization = getAuthorizationHeader();
+      if (_authorization != null) {
+        requestOptions = requestOptions.copyWith(headers: _authorization);
+      }
+
       var response = await dio.get(path,
           queryParameters: params,
-          options: tokenOptions,
+          options: requestOptions,
           cancelToken: cancelToken);
-      if (response.statusCode == 200) {
-        return response.data;
-      } else {
-        _handleHttpError(response.statusCode!);
-        return Future.error('HTTP错误');
-      }
+      return response.data;
     } on DioError catch (e) {
       throw createErrorEntity(e);
     }
   }
+
+  // /// restful get 操作
+  // Future get(String path,
+  //     {dynamic params, required Options options, CancelToken? cancelToken}) async {
+  //   try {
+  //     var tokenOptions = options;
+  //     var response = await dio.get(path,
+  //         queryParameters: params,
+  //         options: tokenOptions,
+  //         cancelToken: cancelToken);
+  //     if (response.statusCode == 200) {
+  //       return response.data;
+  //     } else {
+  //       _handleHttpError(response.statusCode!);
+  //       return Future.error('HTTP错误');
+  //     }
+  //   } on DioError catch (e) {
+  //     throw createErrorEntity(e);
+  //   }
+  // }
 
   /// restful post 操作
   Future post(String path,
