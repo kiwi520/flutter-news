@@ -106,10 +106,6 @@ class StorageUtil {
 
   /// 根据key存储Map类型
   static Future<bool> setMap(String key, Map value) {
-
-    print('Map');
-    print(json.encode(value));
-    print('Map');
     return _preferences.setString(key, json.encode(value));
   }
 

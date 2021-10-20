@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:convert';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:cookie_jar/cookie_jar.dart';
@@ -99,29 +100,29 @@ class HttpUtil {
     //   };
     // }
 
-    dio.interceptors.add(
-      InterceptorsWrapper(onRequest: (e, handler) {
-        handler.next(e);
-      }, onResponse: (e, handler) {
-        var code = e.data["code"];
-        if (code == 200) {
-          handler.next(e);
-        } else {
-          switch (code) {
-            case 1003:
-            // token失效,重新登录
-              print("token失效");
-              // reLogin();
-              break;
-            default:
-          }
-          handler.next(e);
-        }
-      }, onError: (DioError e, handler) {
-        // 当请求失败时做一些预处理
-        return handler.next(e);
-      }),
-    );
+    // dio.interceptors.add(
+    //   InterceptorsWrapper(onRequest: (e, handler) {
+    //     handler.next(e);
+    //   }, onResponse: (e, handler) {
+    //     var code = e.data["code"];
+    //     if (code == 200) {
+    //       handler.next(e);
+    //     } else {
+    //       switch (code) {
+    //         case 1003:
+    //         // token失效,重新登录
+    //           print("token失效");
+    //           // reLogin();
+    //           break;
+    //         default:
+    //       }
+    //       handler.next(e);
+    //     }
+    //   }, onError: (DioError e, handler) {
+    //     // 当请求失败时做一些预处理
+    //     return handler.next(e);
+    //   }),
+    // );
   }
 
 
@@ -192,9 +193,6 @@ class HttpUtil {
   }
 
   /// restful get 操作
-
-  // 修改 get 请求
-  /// restful get 操作
   /// refresh 是否下拉刷新 默认 false
   /// noCache 是否不缓存 默认 true
   /// list 是否列表 默认 false
@@ -202,15 +200,15 @@ class HttpUtil {
   Future get(
       String path, {
         dynamic params,
-        required Options options,
+        Options? options,
         bool refresh = false,
         bool noCache = !CACHE_ENABLE,
         bool list = false,
-        required String cacheKey,
+        String? cacheKey,
         CancelToken? cancelToken
       }) async {
     try {
-      Options requestOptions = options;
+      Options requestOptions = options ?? Options();
       requestOptions = requestOptions.copyWith(extra: {
         "refresh": refresh,
         "noCache": noCache,
@@ -222,10 +220,7 @@ class HttpUtil {
         requestOptions = requestOptions.copyWith(headers: _authorization);
       }
 
-      var response = await dio.get(path,
-          queryParameters: params,
-          options: requestOptions,
-          cancelToken: cancelToken);
+      Response response = await dio.get(path, queryParameters: params, options: requestOptions, cancelToken: cancelToken);
       return response.data;
     } on DioError catch (e) {
       throw createErrorEntity(e);
@@ -256,9 +251,25 @@ class HttpUtil {
   Future post(String path,
       {dynamic params, Options? options, CancelToken? cancelToken}) async {
     try {
+
+
+      print('path-post');
+      print(path);
+      print('path');
+      print('params');
+      print(params);
+      print('params');
+
+      print('cancelToken');
+      print(cancelToken);
+      print('cancelToken');
+
       var tokenOptions = options;
       var response = await dio.post(path,
           data: params, options: tokenOptions, cancelToken: cancelToken);
+      print('response-post');
+      print(response);
+      print('response-post');
       if (response.statusCode == 200) {
         return response.data;
       } else {

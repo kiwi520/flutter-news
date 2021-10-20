@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/common/api/user.dart';
-import 'package:news_app/common/entity/entities.dart';
 import 'package:news_app/common/entity/user_login_request_entity.dart';
 import 'package:news_app/common/entity/user_login_response_entity.dart';
 import 'package:news_app/common/utils/utils.dart';
@@ -97,7 +96,6 @@ class _SignInPageState extends State<SignInPage> {
 
   /// 登录操作
   _handleSignIn() async {
-    print('asdf');
     if(!duIsEmail(_emailController.value.text)){
       toastInfo(msg:'请正确输入邮件');
       return;
@@ -120,6 +118,8 @@ class _SignInPageState extends State<SignInPage> {
     print('StorageUtil.getMap(STORAGE_USER_PROFILE_KEY)');
     print(StorageUtil.getMap(STORAGE_USER_PROFILE_KEY));
     print('StorageUtil.getMap(STORAGE_USER_PROFILE_KEY)');
+
+    Navigator.pushNamed(context, "/app");
   }
 
   /// 跳转到注册页面
