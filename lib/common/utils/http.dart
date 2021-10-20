@@ -227,49 +227,14 @@ class HttpUtil {
     }
   }
 
-  // /// restful get 操作
-  // Future get(String path,
-  //     {dynamic params, required Options options, CancelToken? cancelToken}) async {
-  //   try {
-  //     var tokenOptions = options;
-  //     var response = await dio.get(path,
-  //         queryParameters: params,
-  //         options: tokenOptions,
-  //         cancelToken: cancelToken);
-  //     if (response.statusCode == 200) {
-  //       return response.data;
-  //     } else {
-  //       _handleHttpError(response.statusCode!);
-  //       return Future.error('HTTP错误');
-  //     }
-  //   } on DioError catch (e) {
-  //     throw createErrorEntity(e);
-  //   }
-  // }
-
   /// restful post 操作
   Future post(String path,
       {dynamic params, Options? options, CancelToken? cancelToken}) async {
     try {
 
-
-      print('path-post');
-      print(path);
-      print('path');
-      print('params');
-      print(params);
-      print('params');
-
-      print('cancelToken');
-      print(cancelToken);
-      print('cancelToken');
-
       var tokenOptions = options;
       var response = await dio.post(path,
           data: params, options: tokenOptions, cancelToken: cancelToken);
-      print('response-post');
-      print(response);
-      print('response-post');
       if (response.statusCode == 200) {
         return response.data;
       } else {
