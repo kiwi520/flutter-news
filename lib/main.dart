@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Provider.debugCheckInvalidValueType = null;
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'news App',
       home: WelcomePage(),
       routes: staticRoutes,

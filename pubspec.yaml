@@ -47,9 +47,10 @@ dependencies:
   shared_preferences: ^2.0.8
 
   provider: ^6.0.1
-
-   # 缓存
-#  localstorage: ^4.0.0+1
+  cached_network_image: ^3.1.0
+  intl: ^0.17.0
+  # 缓存
+  #  localstorage: ^4.0.0+1
 
   # 加密
   crypto: ^3.0.1
@@ -120,4 +121,4 @@ flutter:
           weight: 600
     - family: Iconfont
       fonts:
-          - asset: assets/fonts/iconfont.ttf
+        - asset: assets/fonts/iconfont.ttf

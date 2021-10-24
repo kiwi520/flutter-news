@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/common/providers/application_provider.dart';
 import 'package:news_app/common/providers/category_provider.dart';
+import 'package:news_app/common/providers/channels_provider.dart';
+import 'package:news_app/common/providers/news_list_provider.dart';
+import 'package:news_app/common/providers/news_recommend_provider.dart';
 import 'package:news_app/common/utils/utils.dart';
 import 'package:news_app/common/values/values.dart';
 import 'package:news_app/common/widgets/appBar.dart';
@@ -158,7 +161,13 @@ class _ApplicationPageState extends State<ApplicationPage>
               MultiProvider(
                   providers: [
                     ChangeNotifierProvider<CategoryProvider>(
-                        create: (_) => CategoryProvider())
+                        create: (_) => CategoryProvider()),
+                    ChangeNotifierProvider<newsRecommendProvider>(
+                        create: (_) => newsRecommendProvider()),
+                    ChangeNotifierProvider<channelsProvider>(
+                        create: (_) => channelsProvider()),
+                    ChangeNotifierProvider<newsPageListProvider>(
+                        create: (_) => newsPageListProvider())
                   ],
                   builder: (context, _) {
                     return MainPage();

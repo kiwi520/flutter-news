@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ducafecat_news/common/utils/utils.dart';
-import 'package:flutter_ducafecat_news/common/values/values.dart';
-import 'package:flutter_ducafecat_news/common/widgets/widgets.dart';
+import 'package:news_app/common/utils/utils.dart';
+import 'package:news_app/common/values/values.dart';
+import 'package:news_app/common/widgets/widgets.dart';
 
 /// 邮件订阅
 Widget newsletterWidget() {
@@ -46,7 +46,7 @@ Widget newsletterWidget() {
         // btn subcrible
         Padding(
           padding: EdgeInsets.only(top: 15),
-          child: btnFlatButtonWidget(
+          child: btnElevatedButtonWidget(
             onPressed: () {},
             width: duSetWidth(335),
             height: duSetHeight(44),
