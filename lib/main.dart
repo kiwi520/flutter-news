@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/global.dart';
 import 'package:news_app/pages/welcome/welcome.dart';
 import 'package:news_app/routes.dart';
+import 'package:provider/provider.dart';
 
 // void main() => runApp(MyApp());
 void main() => Global.init().then(
@@ -11,6 +12,7 @@ void main() => Global.init().then(
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Provider.debugCheckInvalidValueType = null;
     return MaterialApp(
       title: 'news App',
       home: WelcomePage(),

@@ -115,9 +115,9 @@ class _SignInPageState extends State<SignInPage> {
 
     Global.saveProfile(userLoginResponseEntity);
     
-    print('StorageUtil.getMap(STORAGE_USER_PROFILE_KEY)');
-    print(StorageUtil.getMap(STORAGE_USER_PROFILE_KEY));
-    print('StorageUtil.getMap(STORAGE_USER_PROFILE_KEY)');
+    // print('StorageUtil.getMap(STORAGE_USER_PROFILE_KEY)');
+    // print(StorageUtil.getMap(STORAGE_USER_PROFILE_KEY));
+    // print('StorageUtil.getMap(STORAGE_USER_PROFILE_KEY)');
 
     Navigator.pushNamed(context, "/app");
   }

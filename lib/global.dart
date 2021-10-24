@@ -45,7 +45,7 @@ class Global {
   static Future<bool> saveProfile(UserLoginResponseEntity userResponse) async {
     profile = userResponse;
     print('profile');
-    print(profile);
+    // print(profile);
     print(profile.displayName);
     print(profile.accessToken);
     print(profile.channels);

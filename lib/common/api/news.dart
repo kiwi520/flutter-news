@@ -23,9 +23,6 @@ class NewsAPI {
   ///
   static Future<TestEntity> testData() async {
     var response = await HttpUtil().get('/test');
-    print('response');
-    print(response);
-    print('response');
     return response
         .map<TestEntity>(
             (item) => TestEntity.fromJson(item))
