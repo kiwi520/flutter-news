@@ -42,13 +42,13 @@ class _MainPageState extends State<MainPage> {
   _loadAllData() async {
     print('_loadAllData');
     CategoryService.getCategory(
-        Provider.of<CategoryProvider>(context, listen: false));
+        Provider.of<CategoryProvider>(context, listen: false),context);
     newsRecommendService.getNewsRecommend(
-        Provider.of<newsRecommendProvider>(context, listen: false));
+        Provider.of<newsRecommendProvider>(context, listen: false),context);
     channelsService.getChannelList(
-        Provider.of<channelsProvider>(context, listen: false));
+        Provider.of<channelsProvider>(context, listen: false),context);
     newsPageListService.getNewsPageList(
-        Provider.of<newsPageListProvider>(context, listen: false));
+        Provider.of<newsPageListProvider>(context, listen: false),context);
   }
 
   // 分类菜单

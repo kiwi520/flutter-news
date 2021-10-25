@@ -111,7 +111,7 @@ class _SignInPageState extends State<SignInPage> {
         password: duSHA256(_passController.value.text)
     );
 
-    UserLoginResponseEntity userLoginResponseEntity = await UserAPI.login(params: userLoginRequestEntity);
+    UserLoginResponseEntity userLoginResponseEntity = await UserAPI.login(params: userLoginRequestEntity, context: context);
 
     Global.saveProfile(userLoginResponseEntity);
     
