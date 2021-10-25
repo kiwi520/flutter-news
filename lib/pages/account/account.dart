@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/common/providers/app_provider.dart';
+import 'package:news_app/common/utils/authentication.dart';
+import 'package:news_app/global.dart';
+import 'package:provider/provider.dart';
 
 class AccountPage extends StatefulWidget {
   AccountPage({Key? key}) : super(key: key);
@@ -10,8 +14,27 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('Account'),
-    );
+    return Consumer<AppProvider>(
+        builder: (context,app,child){
+          return Column(
+            children: <Widget>[
+              Text('用户: ${Global.profile.displayName}'),
+              Divider(),
+              MaterialButton(
+                onPressed: () {
+                  goLoginPage(context);
+                },
+                child: Text('退出'),
+              ),
+              Divider(),
+              MaterialButton(
+                onPressed: () {
+                  app.switchGrayFilter();
+                },
+                child: Text('灰色切换 ${app.isGrayFilter}'),
+              ),
+            ],
+          );
+        });
   }
 }

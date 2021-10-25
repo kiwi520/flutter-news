@@ -150,4 +150,14 @@ class StorageUtil {
     }
   }
 
+  static Future<bool> setJSON(String key, dynamic jsonVal) {
+    String jsonString = jsonEncode(jsonVal);
+    return _preferences.setString(key, jsonString);
+  }
+
+  static dynamic getJSON(String key) {
+    String? jsonString = _preferences.getString(key);
+    return jsonString == null ? null : jsonDecode(jsonString);
+  }
+
 }

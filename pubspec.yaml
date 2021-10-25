@@ -44,9 +44,12 @@ dependencies:
   cookie_jar: 3.0.1
   dio_cookie_manager: ^2.0.0
   dio_http2_adapter: ^2.0.0
-  shared_preferences: ^2.0.8
 
+  # 状态管理
   provider: ^6.0.1
+
+  # storage + cache
+  shared_preferences: ^2.0.8
   cached_network_image: ^3.1.0
   intl: ^0.17.0
   # 缓存
