@@ -58,6 +58,10 @@ dependencies:
   # 缓存
   #  localstorage: ^4.0.0+1
 
+  #骨架屏
+#  pk_skeleton: ^0.0.2
+  skeletons: ^0.0.3
+
   # 加密
   crypto: ^3.0.1
 

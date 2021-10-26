@@ -7,14 +7,14 @@ import 'package:news_app/common/utils/utils.dart';
 class NewsAPI {
   /// 翻页
   static Future<NewsPageListResponseEntity> newsPageList(
-      {NewsPageListRequestEntity? params, required BuildContext context,bool? cacheDisk }) async {
+      {dynamic? params, required BuildContext context,bool? cacheDisk }) async {
     var response = await HttpUtil().get('/news', context:context, params: params,  options: Options(method:'get'), cacheDisk: cacheDisk);
     return NewsPageListResponseEntity.fromJson(response);
   }
 
   /// 推荐
   static Future<NewsRecommendResponseEntity> newsRecommend(
-      {required BuildContext context,NewsRecommendRequestEntity? params,bool? cacheDisk = false}) async {
+      {required BuildContext context,dynamic params,bool cacheDisk = false}) async {
     var response = await HttpUtil().get('/news/recommend', context:context, params: params, options: Options(method:'get'), cacheDisk: cacheDisk);
     return NewsRecommendResponseEntity.fromJson(response);
   }
