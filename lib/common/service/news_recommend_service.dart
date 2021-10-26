@@ -5,8 +5,8 @@ import 'package:news_app/common/providers/news_recommend_provider.dart';
 
 class newsRecommendService {
 
-  static  getNewsRecommend(newsRecommendProvider recommendProvider, BuildContext context) async {
-    var  _newsRecommend =   await  NewsAPI.newsRecommend(context: context);
+  static  getNewsRecommend(newsRecommendProvider recommendProvider, BuildContext context, {bool? cacheDisk}) async {
+    var  _newsRecommend =   await  NewsAPI.newsRecommend(context: context,cacheDisk:cacheDisk);
 
     recommendProvider.setNewRecommend(_newsRecommend);
   }

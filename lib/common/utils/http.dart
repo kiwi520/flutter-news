@@ -66,7 +66,7 @@ class HttpUtil {
     // Cookie管理
     CookieJar cookieJar = CookieJar();
     dio.interceptors.add(CookieManager(cookieJar));
-    dio.interceptors.add(NetCacheInterceptor()); //缓存
+
 
     /// 拦截器
     // interceptors(dio);
@@ -147,6 +147,9 @@ class HttpUtil {
         return handler.reject(e);
       }),
     );
+
+
+    dio.interceptors.add(NetCacheInterceptor()); //缓存
   }
 
   /*

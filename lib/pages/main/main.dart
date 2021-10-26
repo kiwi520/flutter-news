@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:news_app/common/entity/entities.dart';
 import 'package:news_app/common/providers/category_provider.dart';
 import 'package:news_app/common/providers/channels_provider.dart';
@@ -9,6 +12,8 @@ import 'package:news_app/common/service/channels_service.dart';
 import 'package:news_app/common/service/news_list_service.dart';
 import 'package:news_app/common/service/news_recommend_service.dart';
 import 'package:news_app/common/utils/screen.dart';
+import 'package:news_app/common/utils/utils.dart';
+import 'package:news_app/common/values/values.dart';
 import 'package:news_app/pages/main/ad_widget.dart';
 import 'package:news_app/pages/main/categories_widget.dart';
 import 'package:news_app/pages/main/channels_widget.dart';
@@ -25,30 +30,51 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  late NewsPageListResponseEntity _newsPageList; // 新闻翻页
-  late NewsRecommendResponseEntity _newsRecommend; // 新闻推荐
-  // late List<CategoryResponseEntity> _categories; // 分类
-  late List<ChannelResponseEntity> _channels; // 频道
+  late EasyRefreshController _controller; // EasyRefresh控制器
 
-  late String _selCategoryCode; // 选中的分类Code
+  // late NewsPageListResponseEntity _newsPageList; // 新闻翻页
+  // late NewsRecommendResponseEntity _newsRecommend; // 新闻推荐
+  // // late List<CategoryResponseEntity> _categories; // 分类
+  // late List<ChannelResponseEntity> _channels; // 频道
+  //
+  // late String _selCategoryCode; // 选中的分类Code
 
   @override
   void initState() {
     super.initState();
     _loadAllData();
+    _loadLatestWithDiskCache();
+  }
+
+  // 如果有磁盘缓存，延迟3秒拉取更新档案
+  _loadLatestWithDiskCache() {
+    if (CACHE_ENABLE == true) {
+      var cacheData = StorageUtil.getJSON(STORAGE_INDEX_NEWS_CACHE_KEY);
+      if (cacheData != null) {
+        print('ghghgh-----ghghgh');
+        print('ghghghghghgh');
+        print('ghghghghghgh');
+        print('ghghghghghgh');
+        print('ghghghghghgh');
+        print('ghghgh-----ghghgh');
+        Timer(Duration(seconds: 3), () {
+          _controller.callRefresh();
+        });
+      }
+    }
   }
 
   // 读取所有数据
   _loadAllData() async {
     print('_loadAllData');
     CategoryService.getCategory(
-        Provider.of<CategoryProvider>(context, listen: false),context);
+        Provider.of<CategoryProvider>(context, listen: false),context,cacheDisk: true);
     newsRecommendService.getNewsRecommend(
-        Provider.of<newsRecommendProvider>(context, listen: false),context);
+        Provider.of<newsRecommendProvider>(context, listen: false),context,cacheDisk: true);
     channelsService.getChannelList(
-        Provider.of<channelsProvider>(context, listen: false),context);
+        Provider.of<channelsProvider>(context, listen: false),context,cacheDisk: true);
     newsPageListService.getNewsPageList(
-        Provider.of<newsPageListProvider>(context, listen: false),context);
+        Provider.of<newsPageListProvider>(context, listen: false),context,cacheDisk: true);
   }
 
   // 分类菜单
