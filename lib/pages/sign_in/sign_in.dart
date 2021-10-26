@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/common/api/user.dart';
@@ -119,7 +120,9 @@ class _SignInPageState extends State<SignInPage> {
     // print(StorageUtil.getMap(STORAGE_USER_PROFILE_KEY));
     // print('StorageUtil.getMap(STORAGE_USER_PROFILE_KEY)');
 
-    Navigator.pushNamed(context, "/app");
+    // Navigator.pushNamed(context, "/app");
+    // AutoRouter.of(context).pushNamed('/application-page');
+    context.router.pushNamed('/application-page');
   }
 
   /// 跳转到注册页面

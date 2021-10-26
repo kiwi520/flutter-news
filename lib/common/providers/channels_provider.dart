@@ -21,8 +21,8 @@ class channelsProvider with ChangeNotifier{
   }
 
   //
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  // }
 }

@@ -158,20 +158,21 @@ class _ApplicationPageState extends State<ApplicationPage>
           return PageView(
             physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
-              MultiProvider(
-                  providers: [
-                    ChangeNotifierProvider<CategoryProvider>(
-                        create: (_) => CategoryProvider()),
-                    ChangeNotifierProvider<newsRecommendProvider>(
-                        create: (_) => newsRecommendProvider()),
-                    ChangeNotifierProvider<channelsProvider>(
-                        create: (_) => channelsProvider()),
-                    ChangeNotifierProvider<newsPageListProvider>(
-                        create: (_) => newsPageListProvider())
-                  ],
-                  builder: (context, _) {
-                    return MainPage();
-                  }),
+              // MultiProvider(
+              //     providers: [
+              //       ChangeNotifierProvider<CategoryProvider>(
+              //           create: (_) => CategoryProvider()),
+              //       ChangeNotifierProvider<newsRecommendProvider>(
+              //           create: (_) => newsRecommendProvider()),
+              //       ChangeNotifierProvider<channelsProvider>(
+              //           create: (_) => channelsProvider()),
+              //       ChangeNotifierProvider<newsPageListProvider>(
+              //           create: (_) => newsPageListProvider())
+              //     ],
+              //     builder: (context, _) {
+              //       return MainPage();
+              //     }),
+              MainPage(),
               CategoryPage(),
               BookmarksPage(),
               AccountPage(),
@@ -203,15 +204,24 @@ class _ApplicationPageState extends State<ApplicationPage>
         );
   }
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return ChangeNotifierProvider<ApplicationProvider>(
+  //     create: (_) => ApplicationProvider(),
+  //     child: Scaffold(
+  //       appBar: _buildAppBar(),
+  //       body: _buildPageView(),
+  //       bottomNavigationBar: _buildBottomNavigationBar(),
+  //     ),
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ApplicationProvider>(
-      create: (_) => ApplicationProvider(),
-      child: Scaffold(
-        appBar: _buildAppBar(),
-        body: _buildPageView(),
-        bottomNavigationBar: _buildBottomNavigationBar(),
-      ),
+    return Scaffold(
+      appBar: _buildAppBar(),
+      body: _buildPageView(),
+      bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
 }

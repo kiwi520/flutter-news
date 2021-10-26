@@ -13,15 +13,18 @@ class newsPageListProvider with ChangeNotifier{
 
   void setNewsPageList(NewsPageListResponseEntity newsPageList) {
     _newsPageList = NewsPageListResponseEntity();
+
     _newsPageList = newsPageList;
 
     loading = false;
     notifyListeners();
   }
 
-  //
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  // //
+  // @override
+  // void dispose() {
+  //   _newsPageList = NewsPageListResponseEntity();
+  //   loading = true;
+  //   super.dispose();
+  // }
 }

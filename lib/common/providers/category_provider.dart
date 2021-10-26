@@ -29,10 +29,10 @@ class CategoryProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  //
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  // //
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  // }
 
 }
