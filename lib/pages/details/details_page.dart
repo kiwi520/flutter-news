@@ -14,10 +14,17 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'DetailsPage${widget.title}｜ ${widget.url}'
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+            'ttt'
+        ),
       ),
+      body: Center(
+        child: Text(
+            'DetailsPage${widget.title}｜ ${widget.url}'
+        ),
+      )
     );
   }
 }

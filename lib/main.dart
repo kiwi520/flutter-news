@@ -5,6 +5,7 @@ import 'package:news_app/common/providers/category_provider.dart';
 import 'package:news_app/common/providers/channels_provider.dart';
 import 'package:news_app/common/providers/news_list_provider.dart';
 import 'package:news_app/common/providers/news_recommend_provider.dart';
+import 'package:news_app/common/router/auth_grard.dart';
 import 'package:news_app/common/router/router.gr.dart';
 import 'package:news_app/global.dart';
 import 'package:news_app/pages/index/index.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.debugCheckInvalidValueType = null;
-    final _appRouter = AppRouter();
+    final _appRouter = AppRouter(authGuard:AuthGuard());
     return MultiProvider(
         providers: [
           ChangeNotifierProvider<ApplicationProvider>(

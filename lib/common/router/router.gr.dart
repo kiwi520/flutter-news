@@ -10,6 +10,8 @@
 
 import 'package:auto_route/auto_route.dart' as _i7;
 import 'package:flutter/material.dart' as _i8;
+import 'package:news_app/common/router/auth_grard.dart' as _i9;
+import 'package:news_app/common/router/router.dart' as _i10;
 import 'package:news_app/pages/application/application.dart' as _i5;
 import 'package:news_app/pages/details/details_page.dart' as _i6;
 import 'package:news_app/pages/index/index.dart' as _i1;
@@ -18,14 +20,18 @@ import 'package:news_app/pages/sign_up/sign_up.dart' as _i4;
 import 'package:news_app/pages/welcome/welcome.dart' as _i2;
 
 class AppRouter extends _i7.RootStackRouter {
-  AppRouter([_i8.GlobalKey<_i8.NavigatorState>? navigatorKey])
+  AppRouter(
+      {_i8.GlobalKey<_i8.NavigatorState>? navigatorKey,
+      required this.authGuard})
       : super(navigatorKey);
+
+  final _i9.AuthGuard authGuard;
 
   @override
   final Map<String, _i7.PageFactory> pagesMap = {
-    IndexPageRoute.name: (routeData) {
-      final args = routeData.argsAs<IndexPageRouteArgs>(
-          orElse: () => const IndexPageRouteArgs());
+    IndexRoute.name: (routeData) {
+      final args = routeData.argsAs<IndexRouteArgs>(
+          orElse: () => const IndexRouteArgs());
       return _i7.AdaptivePage<dynamic>(
           routeData: routeData, child: _i1.IndexPage(key: args.key));
     },
@@ -61,34 +67,37 @@ class AppRouter extends _i7.RootStackRouter {
           orElse: () => DetailsArgs(
               title: queryParams.optString('title'),
               url: queryParams.optString('url')));
-      return _i7.AdaptivePage<dynamic>(
+      return _i7.CustomPage<dynamic>(
           routeData: routeData,
-          child: _i6.DetailsPage(args.title, args.url, key: args.key));
+          child: _i6.DetailsPage(args.title, args.url, key: args.key),
+          transitionsBuilder: _i10.zoomInTransition,
+          opaque: true,
+          barrierDismissible: false);
     }
   };
 
   @override
   List<_i7.RouteConfig> get routes => [
-        _i7.RouteConfig(IndexPageRoute.name, path: '/'),
+        _i7.RouteConfig(IndexRoute.name, path: '/'),
         _i7.RouteConfig(Welcome.name, path: '/welcome-page'),
         _i7.RouteConfig(SingIn.name, path: '/sign-in-page'),
         _i7.RouteConfig(SignUp.name, path: '/sign-up-page'),
         _i7.RouteConfig(Application.name, path: '/application-page'),
         _i7.RouteConfig(Detail.name, path: '/detail/:title/:url'),
-        _i7.RouteConfig(Details.name, path: '/details')
+        _i7.RouteConfig(Details.name, path: '/details', guards: [authGuard])
       ];
 }
 
 /// generated route for [_i1.IndexPage]
-class IndexPageRoute extends _i7.PageRouteInfo<IndexPageRouteArgs> {
-  IndexPageRoute({_i8.Key? key})
-      : super(name, path: '/', args: IndexPageRouteArgs(key: key));
+class IndexRoute extends _i7.PageRouteInfo<IndexRouteArgs> {
+  IndexRoute({_i8.Key? key})
+      : super(name, path: '/', args: IndexRouteArgs(key: key));
 
-  static const String name = 'IndexPageRoute';
+  static const String name = 'IndexRoute';
 }
 
-class IndexPageRouteArgs {
-  const IndexPageRouteArgs({this.key});
+class IndexRouteArgs {
+  const IndexRouteArgs({this.key});
 
   final _i8.Key? key;
 }
