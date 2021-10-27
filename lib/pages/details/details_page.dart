@@ -1,9 +1,11 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 
 class DetailsPage extends StatefulWidget {
   final String? title;
   final String? url;
-  const DetailsPage({Key? key,this.title,this.url}) : super(key: key);
+  // const DetailsPage(@PathParam('title') this.title,@PathParam('url') this.url,{Key? key}) : super(key: key);
+  const DetailsPage(@QueryParam('title') this.title,@QueryParam('url') this.url,{Key? key}) : super(key: key);
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
@@ -12,9 +14,9 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Center(
       child: Text(
-        'DetailsPage'
+        'DetailsPage${widget.title}｜ ${widget.url}'
       ),
     );
   }

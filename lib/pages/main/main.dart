@@ -133,7 +133,7 @@ class _MainPageState extends State<MainPage> {
       builder: (context, recommend, child) {
         return recommend.loading == true
             ? Container()
-            : recommendWidget(recommend.newsRecommend);
+            : recommendWidget(context,recommend.newsRecommend);
       },
     );
   }
