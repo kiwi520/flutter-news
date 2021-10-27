@@ -68,6 +68,9 @@ dependencies:
   # 路由
   auto_route: ^3.0.3
 
+
+  webview_flutter: ^2.1.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

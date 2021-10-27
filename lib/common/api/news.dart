@@ -13,10 +13,10 @@ class NewsAPI {
   }
 
   /// 推荐
-  static Future<NewsRecommendResponseEntity> newsRecommend(
+  static Future<Items> newsRecommend(
       {required BuildContext context,dynamic params,bool cacheDisk = false}) async {
     var response = await HttpUtil().get('/news/recommend', context:context, params: params, options: Options(method:'get'), cacheDisk: cacheDisk);
-    return NewsRecommendResponseEntity.fromJson(response);
+    return Items.fromJson(response);
   }
 
   /// 分类

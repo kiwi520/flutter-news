@@ -1,31 +1,35 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/common/entity/entities.dart';
+import 'package:news_app/common/router/router.gr.dart';
 import 'package:news_app/common/utils/utils.dart';
 import 'package:news_app/common/values/values.dart';
 import 'package:news_app/common/widgets/image.dart';
+import 'package:news_app/common/widgets/textClick.dart';
 import 'package:news_app/common/widgets/widgets.dart';
+import 'package:news_app/pages/details/details_page.dart';
 
 // 推荐阅读
-Widget recommendWidget(context,NewsRecommendResponseEntity newsRecommend) {;
+Widget recommendWidget(context,Items item) {
+
+
   return Container(
     margin: EdgeInsets.all(duSetWidth(20)),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        // 图
+        /// 图片
         InkWell(
           child: imageCached(
-            newsRecommend.thumbnail!,
+            item.thumbnail!,
             width: duSetWidth(335),
             height: duSetHeight(290),
           ),
           onTap: () {
-
-            AutoRouter.of(context).pushNamed('/details?title=${newsRecommend.title}&url=${newsRecommend.url}');
-            // AutoRouter.of(context).pushNamed('/detail/${newsRecommend.title}/${newsRecommend.url.toString()}');
-            // AutoRouter.of(context).pushNamed('/detail/1/a');
-            // AutoRouter.of(context).push('/details-page')
+            /// 跳转到详情页面
+            AutoRouter.of(context).push(Details(item:item));
             // context.router.pushNamed('/application-page');
           },
         ),
@@ -34,7 +38,7 @@ Widget recommendWidget(context,NewsRecommendResponseEntity newsRecommend) {;
         Container(
           margin: EdgeInsets.only(top: duSetHeight(14)),
           child: Text(
-            newsRecommend.author!,
+            item.author!,
             style: TextStyle(
               fontFamily: 'Avenir',
               fontWeight: FontWeight.normal,
@@ -46,15 +50,17 @@ Widget recommendWidget(context,NewsRecommendResponseEntity newsRecommend) {;
         // 标题
         Container(
           margin: EdgeInsets.only(top: duSetHeight(10)),
-          child: Text(
-            newsRecommend.title!,
-            style: TextStyle(
+          child: textClickWidget(
+            textStyle: TextStyle(
               fontFamily: 'Montserrat',
               fontWeight: FontWeight.w600,
               color: AppColors.primaryText,
               fontSize: duSetFontSize(24),
               height: 1,
-            ),
+            ), text: item.title!,
+            textClick: () {
+              AutoRouter.of(context).push(Details(item:item));
+            },
           ),
         ),
         // 一行 3 列
@@ -69,7 +75,7 @@ Widget recommendWidget(context,NewsRecommendResponseEntity newsRecommend) {;
                   maxWidth: 120,
                 ),
                 child: Text(
-                  newsRecommend.category!,
+                  item.category!,
                   style: TextStyle(
                     fontFamily: 'Avenir',
                     fontWeight: FontWeight.normal,
@@ -90,7 +96,7 @@ Widget recommendWidget(context,NewsRecommendResponseEntity newsRecommend) {;
                   maxWidth: 120,
                 ),
                 child: Text(
-                  '• ${duTimeLineFormat(DateTime.parse(newsRecommend.addtime!))}',
+                  '• ${duTimeLineFormat(DateTime.parse(item.addtime!))}',
                   style: TextStyle(
                     fontFamily: 'Avenir',
                     fontWeight: FontWeight.normal,

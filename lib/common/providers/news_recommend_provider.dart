@@ -5,14 +5,14 @@ import 'package:news_app/common/entity/entities.dart';
 
 class newsRecommendProvider with ChangeNotifier{
 
-  NewsRecommendResponseEntity _newsRecommendResponseEntity = NewsRecommendResponseEntity();
+  Items _newsRecommendResponseEntity = Items();
 
-  NewsRecommendResponseEntity get newsRecommend => this._newsRecommendResponseEntity;
+  Items get newsRecommend => this._newsRecommendResponseEntity;
 
   bool loading = true;
 
-  void setNewRecommend(NewsRecommendResponseEntity newsRecommendResponseEntity) {
-    _newsRecommendResponseEntity = NewsRecommendResponseEntity();
+  void setNewRecommend(Items newsRecommendResponseEntity) {
+    _newsRecommendResponseEntity = Items();
 
     _newsRecommendResponseEntity = newsRecommendResponseEntity;
 

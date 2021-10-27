@@ -10,6 +10,7 @@
 
 import 'package:auto_route/auto_route.dart' as _i7;
 import 'package:flutter/material.dart' as _i8;
+import 'package:news_app/common/entity/news_list_response_entity.dart' as _i11;
 import 'package:news_app/common/router/auth_grard.dart' as _i9;
 import 'package:news_app/common/router/router.dart' as _i10;
 import 'package:news_app/pages/application/application.dart' as _i5;
@@ -51,25 +52,11 @@ class AppRouter extends _i7.RootStackRouter {
       return _i7.AdaptivePage<dynamic>(
           routeData: routeData, child: const _i5.ApplicationPage());
     },
-    Detail.name: (routeData) {
-      final queryParams = routeData.queryParams;
-      final args = routeData.argsAs<DetailArgs>(
-          orElse: () => DetailArgs(
-              title: queryParams.optString('title'),
-              url: queryParams.optString('url')));
-      return _i7.AdaptivePage<dynamic>(
-          routeData: routeData,
-          child: _i6.DetailsPage(args.title, args.url, key: args.key));
-    },
     Details.name: (routeData) {
-      final queryParams = routeData.queryParams;
-      final args = routeData.argsAs<DetailsArgs>(
-          orElse: () => DetailsArgs(
-              title: queryParams.optString('title'),
-              url: queryParams.optString('url')));
+      final args = routeData.argsAs<DetailsArgs>();
       return _i7.CustomPage<dynamic>(
           routeData: routeData,
-          child: _i6.DetailsPage(args.title, args.url, key: args.key),
+          child: _i6.DetailsPage(item: args.item, key: args.key),
           transitionsBuilder: _i10.zoomInTransition,
           opaque: true,
           barrierDismissible: false);
@@ -82,9 +69,10 @@ class AppRouter extends _i7.RootStackRouter {
         _i7.RouteConfig(Welcome.name, path: '/welcome-page'),
         _i7.RouteConfig(SingIn.name, path: '/sign-in-page'),
         _i7.RouteConfig(SignUp.name, path: '/sign-up-page'),
-        _i7.RouteConfig(Application.name, path: '/application-page'),
-        _i7.RouteConfig(Detail.name, path: '/detail/:title/:url'),
-        _i7.RouteConfig(Details.name, path: '/details', guards: [authGuard])
+        _i7.RouteConfig(Application.name,
+            path: '/application-page', guards: [authGuard]),
+        _i7.RouteConfig(Details.name,
+            path: '/details-page', guards: [authGuard])
       ];
 }
 
@@ -131,44 +119,18 @@ class Application extends _i7.PageRouteInfo<void> {
 }
 
 /// generated route for [_i6.DetailsPage]
-class Detail extends _i7.PageRouteInfo<DetailArgs> {
-  Detail({required String? title, required String? url, _i8.Key? key})
-      : super(name,
-            path: '/detail/:title/:url',
-            args: DetailArgs(title: title, url: url, key: key),
-            rawPathParams: {},
-            rawQueryParams: {'title': title, 'url': url});
-
-  static const String name = 'Detail';
-}
-
-class DetailArgs {
-  const DetailArgs({required this.title, required this.url, this.key});
-
-  final String? title;
-
-  final String? url;
-
-  final _i8.Key? key;
-}
-
-/// generated route for [_i6.DetailsPage]
 class Details extends _i7.PageRouteInfo<DetailsArgs> {
-  Details({required String? title, required String? url, _i8.Key? key})
+  Details({required _i11.Items item, _i8.Key? key})
       : super(name,
-            path: '/details',
-            args: DetailsArgs(title: title, url: url, key: key),
-            rawQueryParams: {'title': title, 'url': url});
+            path: '/details-page', args: DetailsArgs(item: item, key: key));
 
   static const String name = 'Details';
 }
 
 class DetailsArgs {
-  const DetailsArgs({required this.title, required this.url, this.key});
+  const DetailsArgs({required this.item, this.key});
 
-  final String? title;
-
-  final String? url;
+  final _i11.Items item;
 
   final _i8.Key? key;
 }

@@ -7,3 +7,4 @@ export 'storage.dart';
 export 'security.dart';
 export 'iconfont.dart';
 export 'date.dart';
+export 'encode.dart';

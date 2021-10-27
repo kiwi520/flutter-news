@@ -67,7 +67,7 @@ class _MainPageState extends State<MainPage> {
         Provider.of<CategoryProvider>(context, listen: false), context,
         cacheDisk: true);
     newsRecommendService.getNewsRecommend(
-        Provider.of<newsRecommendProvider>(context, listen: false), context,
+        Provider.of<newsPageListProvider>(context, listen: false), context,
         cacheDisk: true);
     channelsService.getChannelList(
         Provider.of<channelsProvider>(context, listen: false), context,
@@ -84,7 +84,7 @@ class _MainPageState extends State<MainPage> {
       }) async {
 
     newsRecommendService.getNewsRecommend(
-        Provider.of<newsRecommendProvider>(context, listen: false), context,
+        Provider.of<newsPageListProvider>(context, listen: false), context,
         cacheDisk: true, params: NewsRecommendRequestEntity(categoryCode: categoryCode));
 
     newsPageListService.getNewsPageList(
@@ -129,11 +129,13 @@ class _MainPageState extends State<MainPage> {
 
   // 推荐阅读
   Widget _buildRecommend() {
-    return Consumer<newsRecommendProvider>(
-      builder: (context, recommend, child) {
-        return recommend.loading == true
-            ? Container()
-            : recommendWidget(context,recommend.newsRecommend);
+    return Consumer<newsPageListProvider>(
+      builder: (context, newss, child) {
+        if (newss.newLoading == true) {
+          return Container();
+        } else {
+          return recommendWidget(context,newss.news!);
+        }
       },
     );
   }
@@ -162,7 +164,7 @@ class _MainPageState extends State<MainPage> {
                 children: newsPageList.newsPageList!.items!.map((item) {
                   // 新闻行
                   List<Widget> widgets = <Widget>[
-                    newsItem(item),
+                    newsItem(context,item),
                     Divider(height: 1),
                   ];
 

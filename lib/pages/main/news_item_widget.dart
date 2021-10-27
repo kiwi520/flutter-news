@@ -1,10 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/common/entity/entities.dart';
+import 'package:news_app/common/router/router.gr.dart';
 import 'package:news_app/common/utils/utils.dart';
 import 'package:news_app/common/values/values.dart';
+import 'package:news_app/common/widgets/textClick.dart';
 import 'package:news_app/common/widgets/widgets.dart';
 
-Widget newsItem(Items item) {
+Widget newsItem(context, Items item) {
   return Container(
     height: duSetHeight(161),
     padding: EdgeInsets.all(duSetWidth(20)),
@@ -12,11 +15,16 @@ Widget newsItem(Items item) {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        // 图
-        imageCached(
-          item.thumbnail!,
-          width: duSetWidth(121),
-          height: duSetWidth(121),
+        /// 图
+        InkWell(
+          child: imageCached(
+            item.thumbnail!,
+            width: duSetWidth(121),
+            height: duSetWidth(121),
+          ),
+          onTap: () {
+            AutoRouter.of(context).push(Details(item: item));
+          },
         ),
         // 右侧
         SizedBox(
@@ -41,17 +49,20 @@ Widget newsItem(Items item) {
               // 标题
               Container(
                 margin: EdgeInsets.only(top: duSetHeight(10)),
-                child: Text(
-                  item.title!,
-                  style: TextStyle(
+                child: textClickWidget(
+                  text: item.title!,
+                  textStyle: TextStyle(
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.w500,
                     color: AppColors.primaryText,
                     fontSize: duSetFontSize(16),
                     height: 1,
                   ),
+                  maxLine: 3,
                   overflow: TextOverflow.clip,
-                  maxLines: 3,
+                  textClick: () {
+                    AutoRouter.of(context).push(Details(item: item));
+                  },
                 ),
               ),
               // Spacer
