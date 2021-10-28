@@ -93,7 +93,7 @@ class _DetailsPageState extends State<DetailsPage> {
           _controller.complete(webViewController);
         },
         javascriptChannels: <JavascriptChannel>[
-          _invokeJavascriptChannel(context),
+          // _invokeJavascriptChannel(context),
         ].toSet(),
         navigationDelegate: (NavigationRequest request) {
           if (request.url != '$SERVER_API_URL/news/content/${widget.item.id}') {
@@ -103,19 +103,18 @@ class _DetailsPageState extends State<DetailsPage> {
           return NavigationDecision.navigate;
         },
         onPageStarted: (String url) {
-          // Timer(Duration(seconds: 1), () {
-          //   setState(() {
-          //     _isPageFinished = true;
-          //   });
-          // _removeAd();
-          // _getViewHeight();
-          // });
         },
-        onPageFinished: (String url) {
-          _getWebViewHeight();
-          setState(() {
-            _isPageFinished = true;
-          });
+        onPageFinished: (String url) async {
+          // 获取滚动高度
+          final scrollHeight = await (await _controller.future).evaluateJavascript(
+            '(() => document.body.scrollHeight)();',
+          );
+          if (scrollHeight != null) {
+            setState(() {
+              _webViewHeight = double.parse(scrollHeight);
+              _isPageFinished = true;
+            });
+          }
         },
         gestureNavigationEnabled: true,
       ),
@@ -126,13 +125,10 @@ class _DetailsPageState extends State<DetailsPage> {
   // 获取页面高度
   _getWebViewHeight() async {
     await (await _controller.future).evaluateJavascript('''
-        try {
           let scrollHeight = document.documentElement.scrollHeight;
           if (scrollHeight) {
             Invoke.postMessage(scrollHeight);
-          }
-        } catch {}
-        ''');
+          }''');
   }
 
 
