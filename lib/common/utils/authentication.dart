@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/common/entity/user_login_response_entity.dart';
+import 'package:news_app/common/router/router.gr.dart';
 import 'package:news_app/common/utils/utils.dart';
 import 'package:news_app/common/values/values.dart';
 import 'package:news_app/global.dart';
@@ -23,7 +24,10 @@ Future deleteAuthentication() async {
 Future goLoginPage(BuildContext context) async {
   await deleteAuthentication();
 
-  context.router.pushNamed('/sign-in-page');
+  context.router.replaceAll([
+    SingIn()
+  ]);
+  // context.router.pushNamed('/sign-in-page');
 
   // Navigator.pushNamedAndRemoveUntil(
   //     context, "/sign-in", (Route<dynamic> route) => false);

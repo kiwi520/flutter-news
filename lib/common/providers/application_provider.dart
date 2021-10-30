@@ -88,4 +88,11 @@ class ApplicationProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+
+  @override
+  void dispose() {
+    // 释放资源
+    super.dispose();
+  }
 }

@@ -120,8 +120,6 @@ class _SignInPageState extends State<SignInPage> {
     // print(StorageUtil.getMap(STORAGE_USER_PROFILE_KEY));
     // print('StorageUtil.getMap(STORAGE_USER_PROFILE_KEY)');
 
-    // Navigator.pushNamed(context, "/app");
-    // AutoRouter.of(context).pushNamed('/application-page');
     context.router.pushNamed('/application-page');
   }
 
