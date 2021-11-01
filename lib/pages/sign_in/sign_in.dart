@@ -97,25 +97,25 @@ class _SignInPageState extends State<SignInPage> {
 
   /// 登录操作
   _handleSignIn() async {
-    if(!duIsEmail(_emailController.value.text)){
-      toastInfo(msg:'请正确输入邮件');
+    if (!duIsEmail(_emailController.value.text)) {
+      toastInfo(msg: '请正确输入邮件');
       return;
     }
 
-    if(!duCheckStringLength(_passController.value.text,6)){
-      toastInfo(msg:'密码不能少于6位');
+    if (!duCheckStringLength(_passController.value.text, 6)) {
+      toastInfo(msg: '密码不能少于6位');
       return;
     }
 
     UserLoginRequestEntity userLoginRequestEntity = UserLoginRequestEntity(
         email: _emailController.value.text,
-        password: duSHA256(_passController.value.text)
-    );
+        password: duSHA256(_passController.value.text));
 
-    UserLoginResponseEntity userLoginResponseEntity = await UserAPI.login(params: userLoginRequestEntity, context: context);
+    UserLoginResponseEntity userLoginResponseEntity =
+        await UserAPI.login(params: userLoginRequestEntity, context: context);
 
     Global.saveProfile(userLoginResponseEntity);
-    
+
     // print('StorageUtil.getMap(STORAGE_USER_PROFILE_KEY)');
     // print(StorageUtil.getMap(STORAGE_USER_PROFILE_KEY));
     // print('StorageUtil.getMap(STORAGE_USER_PROFILE_KEY)');
@@ -124,8 +124,8 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   /// 跳转到注册页面
-  _handleNavSignUp(){
-    Navigator.pushNamed(context, "/sign-up");
+  _handleNavSignUp() {
+    context.router.pushNamed('/sign-up-page');
   }
 
   // 登录表单
@@ -198,6 +198,7 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
+
   // 第三方登录
   Widget _buildThirdPartyLogin() {
     return Container(
@@ -268,16 +269,23 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Center(
-        child: Column(
-          children: <Widget>[
-            _buildLogo(),
-            _buildInputForm(),
-            Spacer(),
-            _buildThirdPartyLogin(),
-            _buildSignupButton(),
-          ],
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: <Widget>[
+              _buildLogo(),
+              _buildInputForm(),
+              // Spacer(),
+              _buildThirdPartyLogin(),
+              _buildSignupButton(),
+            ],
+          ),
         ),
       ),
+      // bottomNavigationBar: Padding(
+      //   padding: EdgeInsets.symmetric(horizontal: 40),
+      //   child: _buildSignupButton(),
+      // ),
     );
   }
 }

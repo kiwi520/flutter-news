@@ -469,7 +469,7 @@ ErrorEntity _handleHttpError(int errorCode) {
       message = '请求出错';
       break;
     case 408:
-      message = '请求超时';
+      message = '请求超时11';
       break;
     case 500:
       message = '服务器异常';

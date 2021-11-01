@@ -1,3 +1,4 @@
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/common/utils/utils.dart';
@@ -211,10 +212,11 @@ class _SignUpPageState extends State<SignUpPage> {
       child: btnElevatedButtonWidget(
         onPressed: () {
           /// 跳转到注册页
-          Navigator.pushNamed(
-            context,
-            "/sign-in",
-          );
+          // Navigator.pushNamed(
+          //   context,
+          //   "/sign-in",
+          // );
+          context.router.pushNamed('/sign-in-page');
         },
         width: 294,
         backgroundColor: AppColors.secondaryElement,
@@ -257,16 +259,22 @@ class _SignUpPageState extends State<SignUpPage> {
         ],
       ),
       body: Center(
-        child: Column(
-          children: <Widget>[
-            Divider(height: 1),
-            _buildLogo(),
-            _buildInputForm(),
-            Spacer(),
-            _buildThirdPartyLogin(),
-            _buildHaveAccountButton(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Divider(height: 1),
+              _buildLogo(),
+              _buildInputForm(),
+              // Spacer(),
+              _buildThirdPartyLogin(),
+              // _buildHaveAccountButton(),
+            ],
+          ),
         ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 40),
+        child: _buildHaveAccountButton(),
       ),
     );
   }

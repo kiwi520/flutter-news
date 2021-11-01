@@ -77,6 +77,27 @@ dependencies:
   # 分享
   share: ^2.0.4
 
+  # 设备信息
+  device_info: ^2.0.2
+
+  # 包信息
+  package_info: ^2.0.2
+
+  # 路径查询
+  path_provider: ^2.0.6
+
+  # permission 权限
+  permission_handler: ^8.2.5
+
+
+  # 对话框
+  easy_dialog: ^1.1.0
+
+
+  # 更新升级
+#  install_plugin: ^2.0.1
+  ota_update: ^3.1.1
+
 
 
 flutter_icons:

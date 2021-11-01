@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
               create: (_) => newsPageListProvider())
         ],
         builder: (context, _) {
-          return       MaterialApp.router(
+          return  MaterialApp.router(
             debugShowCheckedModeBanner: false,
               routerDelegate: _appRouter.delegate(),
               routeInformationParser: _appRouter.defaultRouteParser(),

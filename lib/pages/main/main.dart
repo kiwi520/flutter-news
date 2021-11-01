@@ -105,9 +105,9 @@ class _MainPageState extends State<MainPage> {
     //   cacheDisk: true,
     // );
 
-    // if (mounted) {
-    //   setState(() {});
-    // }
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   // 分类菜单
