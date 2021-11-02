@@ -22,7 +22,7 @@ class _IndexPageState extends State<IndexPage> {
   void initState() {
     super.initState();
     print('dddddoAppUpdate');
-    doAppUpdate();
+    // doAppUpdate();
 
     if (Global.isRelease == true) {
       print('doAppUpdate');

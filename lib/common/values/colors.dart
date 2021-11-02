@@ -7,6 +7,9 @@ class AppColors {
   /// 主文本 灰色
   static const Color primaryText = Color.fromARGB(255, 45, 45, 47);
 
+  /// 主文本 灰色
+  static const Color primaryTexts = Color.fromARGB(255, 172, 172, 212);
+
   /// 主控件-背景 蓝色
   static const Color primaryElement = Color.fromARGB(255, 41, 103, 255);
 
@@ -34,4 +37,9 @@ class AppColors {
 
   /// tabBar 默认颜色 灰色
   static const Color tabBarElement = Color.fromARGB(255, 208, 208, 208);
+
+  /// tabCellSeparator 单元格底部分隔条 颜色
+  static const Color tabCellSeparator = Color.fromARGB(255, 230, 230, 231);
+
+  static const Color tabCell = Color.fromARGB(45, 45, 47, 1);
 }

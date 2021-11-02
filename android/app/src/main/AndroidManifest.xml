@@ -38,6 +38,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+       <meta-data android:name="io.sentry.dsn" android:value="https://ab259704b8e042bdb8d799eb5ca916c3@o1057134.ingest.sentry.io/6043780" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

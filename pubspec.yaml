@@ -99,6 +99,12 @@ dependencies:
   ota_update: ^3.1.1
 
 
+  sentry: ^6.0.1
+  sentry_flutter: ^6.0.1
+  graphql: ^5.0.0
+  graphql_flutter: ^5.0.0
+
+
 
 flutter_icons:
     android: "launcher_icon"

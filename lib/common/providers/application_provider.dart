@@ -9,7 +9,7 @@ class ApplicationProvider extends ChangeNotifier {
     'Welcome',
     'Cagegory',
     'Bookmarks',
-    'ACount'
+    'Acount'
   ];
 
   final List<BottomNavigationBarItem> _bottomNavigationBarList = [
